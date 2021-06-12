@@ -6,7 +6,7 @@ authors = ["Renan Rodrigues dos Santos <renan.engmec@gmail.com>"]
 license = "MIT"
 
 [tool.poetry.dependencies]
-python = "^3.9"
+python = "3.9.5"
 pandas = "^1.2.4"
 pymongo = {extras = ["tls", "srv"], version = "^3.11.4"}
 openpyxl = "^3.0.7"
