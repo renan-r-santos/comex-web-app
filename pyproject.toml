@@ -1,0 +1,16 @@
+[tool.poetry]
+name = "comex-web-app"
+version = "1.0.0"
+description = "Projeto que avalia os conhecimentos técnicos necessários para a vaga \"Desenvolvedor Python - Pessoa Jurídica\" para o Observatório da Indústria - FIEC"
+authors = ["Renan Rodrigues dos Santos <renan.engmec@gmail.com>"]
+license = "MIT"
+
+[tool.poetry.dependencies]
+python = "^3.9"
+
+[tool.poetry.dev-dependencies]
+black = "^21.6b0"
+
+[build-system]
+requires = ["poetry-core>=1.0.0"]
+build-backend = "poetry.core.masonry.api"
