@@ -1,37 +1,56 @@
 # Standard modules
+import ast
+import json
 import os
 
 # Third party modules
 import dash
-import dash_core_components as dcc
-import dash_html_components as html
+import flask
+import pymongo
 
-external_stylesheets = ["https://codepen.io/chriddyp/pen/bWLwgP.css"]
+# Securely get MongoDB connection string
+MONGODB_URI = os.getenv("MONGODB_URI")
 
-app = dash.Dash(__name__, external_stylesheets=external_stylesheets)
+# Connect to MongoDB
+client = pymongo.MongoClient(MONGODB_URI)
 
+# Declare the database
+db = client.comex_db
+
+app = dash.Dash(__name__)
 server = app.server
 
-app.layout = html.Div(
-    [
-        html.H2("Hello World"),
-        dcc.Dropdown(
-            id="dropdown",
-            options=[{"label": i, "value": i} for i in ["LA", "NYC", "MTL"]],
-            value="LA",
-        ),
-        html.Div(id="display-value"),
-    ]
-)
 
+@server.route("/api/data")
+def data():
+    # Get filters
+    year = flask.request.args.get("year")
+    mov_type = flask.request.args.get("type")
+    product = flask.request.args.get("product")
+    fields = flask.request.args.get("fields")
 
-@app.callback(
-    dash.dependencies.Output("display-value", "children"),
-    [dash.dependencies.Input("dropdown", "value")],
-)
-def display_value(value):
-    return 'You have selected "{}"'.format(value)
+    # Convert string representation of list to list
+    year = ast.literal_eval(year)
+    mov_type = ast.literal_eval(mov_type)
+    product = ast.literal_eval(product)
+    fields = ast.literal_eval(fields)
 
+    # Create query
+    query = {}
+    if year != []:
+        query["ANO"] = {"$in": year}
+    if mov_type != []:
+        query["MOVIMENTACAO"] = {"$in": mov_type}
+    if product != []:
+        query["COD_SH2"] = {"$in": product}
 
-if __name__ == "__main__":
-    app.run_server(debug=True)
+    # Create fields dict
+    query_fields = {"_id": 0}
+    if fields != [""]:
+        for f in fields:
+            query_fields[f] = 1
+
+    # Query the f_comex collection
+    cursor = db.f_comex.find(query, query_fields)
+    data = list(cursor)
+    return json.dumps(data)

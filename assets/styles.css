@@ -1,0 +1,117 @@
+@charset "utf-8";
+/* CSS Document */
+
+/* Table of contents
+––––––––––––––––––––––––––––––––––––––––––––––––––
+- Html
+- Body
+- Dash Dropdown
+- Dash Table
+- Img
+- Typography
+- Loading indicator
+*/
+
+/* Html
+––––––––––––––––––––––––––––––––––––––––––––––––––*/
+html {
+  font-family: "Circular Std" !important;
+  background: rgb(57, 81, 85);
+  background-repeat: no-repeat !important;
+  background-size: cover !important;
+  width: 100% !important;
+  min-height: 100% !important;
+  min-width: 100% !important;
+  overflow-x: hidden !important;
+}
+
+/* Body
+––––––––––––––––––––––––––––––––––––––––––––––––––*/
+body {
+  font-family: "Circular Std" !important;
+  background-color: transparent; /* By default the body color is white, making any transparent component, actually white!*/
+}
+
+/* Dash Dropdown
+––––––––––––––––––––––––––––––––––––––––––––––––––*/
+.VirtualizedSelectOption {
+  white-space: nowrap;
+}
+
+/* Dash Table
+––––––––––––––––––––––––––––––––––––––––––––––––––*/
+tr:hover {
+  background-color: rgb(41, 56, 55) !important;
+}
+
+/* Img
+–––––––––––––––––––––––––––––––––––––––––––––––––– */
+img {
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+  vertical-align: middle;
+  border-style: none;
+}
+
+/* Typography
+–––––––––––––––––––––––––––––––––––––––––––––––––– */
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  font-family: "Circular Std" !important;
+  margin-top: 0px;
+  margin-bottom: 0px;
+  padding-top: 3px;
+  padding-bottom: 3px;
+  vertical-align: central;
+  text-align: center;
+  font-weight: 350;
+  color: rgb(251, 251, 252);
+}
+
+p {
+  font-weight: 300;
+}
+
+/* Loading indicator
+–––––––––––––––––––––––––––––––––––––––––––––––––– */
+@keyframes fadein {
+  0% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 0.5;
+  }
+}
+
+._dash-loading-callback {
+  font-family: sans-serif;
+  padding-top: 50px;
+  color: rgb(90, 90, 90);
+
+  /* The banner */
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  text-align: center;
+  cursor: progress;
+
+  opacity: 0;
+  background-color: rgb(25, 31, 38);
+  /* Delay animation by 0.4s to prevent flashing
+   and smoothly transition the animation over 0.2s
+ */
+  -moz-animation: fadein 0.2s ease-in 0.4s forwards; /* Firefox */
+  -webkit-animation: fadein 0.2s ease-in 0.4s forwards; /* Safari and Chrome */
+  -o-animation: fadein 0.2s ease-in 0.4s forwards; /* Opera */
+  animation: fadein 0.2s ease-in 0.4s forwards;
+  background-image: url("loading.gif");
+  background-repeat: no-repeat;
+  background-position: center;
+}

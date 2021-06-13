@@ -41,7 +41,6 @@ def main():
             "COD_NCM",
             "COD_UNIDADE",
             "COD_PAIS",
-            "SG_UF",
             "COD_URF",
             "VL_QUANTIDADE",
             "VL_PESO_KG",
@@ -61,10 +60,16 @@ def main():
     d_sh2_df.reset_index(drop=True, inplace=True)
 
     # Aggregate and sum total FOB value of rows that have the same product,
-    # year, month, via and type to drastically optimize and reduce db size
+    # year, month, via, uf and type to drastically optimize and reduce db size
     f_comex_df = f_comex_df.groupby(
-        by=["ANO", "MES", "COD_VIA", "MOVIMENTACAO", "COD_SH2"], as_index=False
+        by=["ANO", "MES", "COD_VIA", "MOVIMENTACAO", "SG_UF", "COD_SH2"],
+        as_index=False,
     ).agg({"VL_FOB": "sum"})
+
+    # There 4 codes that are not Brazilian states:
+    # 'ND', 'EX', 'ZN', 'RE'
+    # Drop those
+    f_comex_df = f_comex_df[~f_comex_df["SG_UF"].isin(["ND", "EX", "ZN", "RE"])]
 
     # Add _id column for MongoDB indexing
     add_mongodb_id(d_via_df)
