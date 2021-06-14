@@ -15,7 +15,7 @@ def get_header():
     header = html.Div(
         [
             html.Div(
-                [], className="col-2"
+                [], className="col-3"
             ),  # Same as img width, allowing to have the title centrally aligned
             html.Div(
                 [
@@ -28,7 +28,7 @@ def get_header():
                         },
                     )
                 ],
-                className="col-8",
+                className="col-6",
                 style={"padding-top": "1%", "padding-bottom": "1%"},
             ),
             html.Div(
@@ -39,7 +39,7 @@ def get_header():
                         width="auto",
                     )
                 ],
-                className="col-2",
+                className="col-3",
                 style={
                     "align-items": "center",
                     "padding-top": "1%",
