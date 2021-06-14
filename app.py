@@ -5,6 +5,7 @@ import os
 
 # Third party modules
 import dash
+import dash_bootstrap_components as dbc
 import flask
 import pandas as pd
 import pymongo
@@ -21,7 +22,7 @@ client = pymongo.MongoClient(MONGODB_URI)
 # Declare the database
 db = client.comex_db
 
-app = dash.Dash(__name__)
+app = dash.Dash(__name__, external_stylesheets=[dbc.themes.BOOTSTRAP])
 server = app.server
 
 

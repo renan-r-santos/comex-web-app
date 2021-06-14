@@ -1,4 +1,5 @@
 # Third party modules
+import dash_bootstrap_components as dbc
 import dash_core_components as dcc
 import dash_html_components as html
 import dash_table
@@ -271,13 +272,59 @@ layout = html.Div(
                             [  # Internal row
                                 # Chart Column
                                 html.Div(
-                                    [dcc.Graph(id="monthly-bar-chart")],
+                                    [
+                                        dcc.Graph(
+                                            id="monthly-bar-chart",
+                                            config={"displaylogo": False},
+                                        )
+                                    ],
                                     className="col-5",
                                 ),
-                                # Chart Column
+                                # Chart and Card Column
                                 html.Div(
-                                    [dcc.Graph(id="pie-chart")],
-                                    className="col-5",
+                                    [
+                                        dbc.Card(
+                                            [
+                                                dbc.CardHeader(
+                                                    "Total movimentado",
+                                                    style={
+                                                        "textAlign": "center",
+                                                        "fontSize": "20px",
+                                                        "background-color": styles.colors[
+                                                            "superdark-green"
+                                                        ],
+                                                    },
+                                                ),
+                                                dbc.CardBody(
+                                                    [
+                                                        html.H5(
+                                                            id="card-total",
+                                                            className=(
+                                                                "card-title"
+                                                            ),
+                                                            style={
+                                                                "margin-bottom": (
+                                                                    "0px"
+                                                                ),
+                                                            },
+                                                        ),
+                                                    ],
+                                                    style={
+                                                        "background-color": styles.colors[
+                                                            "dark-green"
+                                                        ],
+                                                    },
+                                                ),
+                                            ],
+                                            style={"margin-bottom": "60px"},
+                                            inverse=True,
+                                        ),
+                                        dcc.Graph(
+                                            id="pie-chart",
+                                            config={"displaylogo": False},
+                                        ),
+                                    ],
+                                    className="col-4",
                                 ),
                                 # Table ColumN
                                 html.Div(
@@ -311,7 +358,7 @@ layout = html.Div(
                                             column_selectable=False,
                                         )
                                     ],
-                                    className="col-2",
+                                    className="col-3",
                                 ),
                             ],
                             className="row",

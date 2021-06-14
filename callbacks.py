@@ -44,6 +44,7 @@ MONTH_MAP = pd.DataFrame(
         dash.dependencies.Output("filter-product", "options"),
         dash.dependencies.Output("monthly-bar-chart", "figure"),
         dash.dependencies.Output("pie-chart", "figure"),
+        dash.dependencies.Output("card-total", "children"),
     ],
     [
         dash.dependencies.Input("filter-year", "value"),
@@ -185,4 +186,5 @@ def update_chart(
         options_product,
         monthly_fig,
         pie_fig,
+        "US$ {:,}".format(df["VL_FOB"].sum()).replace(",", "."),
     )

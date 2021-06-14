@@ -10,6 +10,7 @@
 - Img
 - Typography
 - Loading indicator
+- Modebar
 */
 
 /* Html
@@ -40,6 +41,9 @@ body {
 
 /* Dash Table
 ––––––––––––––––––––––––––––––––––––––––––––––––––*/
+table {
+  table-layout: fixed;
+}
 tr:hover {
   background-color: rgb(41, 56, 55) !important;
 }
@@ -114,4 +118,10 @@ p {
   background-image: url("loading.gif");
   background-repeat: no-repeat;
   background-position: center;
+}
+
+/* Modebar
+––––––––––––––––––––––––––––––––––––––––––––––––––*/
+.modebar {
+  top: 40px !important;
 }
