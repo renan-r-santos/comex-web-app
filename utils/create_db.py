@@ -24,6 +24,7 @@ def main():
     # Rename sh2 column names to match the names used in f_comex DataFrame
     d_sh2_df.rename(columns={"CO_NCM": "COD_NCM"}, inplace=True)
     d_sh2_df.rename(columns={"CO_SH2": "COD_SH2"}, inplace=True)
+    d_via_df.rename(columns={"CO_VIA": "COD_VIA"}, inplace=True)
 
     # Map SH4 code to SH2 code, since SH4 is not used in this MVP
     f_comex_df = f_comex_df.merge(

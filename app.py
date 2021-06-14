@@ -6,7 +6,11 @@ import os
 # Third party modules
 import dash
 import flask
+import pandas as pd
 import pymongo
+
+# API ENDPOINT
+API_ENDPOINT = "https://comex-web-app.herokuapp.com/api"
 
 # Securely get MongoDB connection string
 MONGODB_URI = os.getenv("MONGODB_URI")
@@ -21,7 +25,15 @@ app = dash.Dash(__name__)
 server = app.server
 
 
-@server.route("/api/data")
+# Convert a cursor result to a ready-to-use dropdown options
+def dict2dropdown(cursor):
+    df = pd.DataFrame(list(cursor))
+    df.columns = ["value", "label"]
+    df = df[["label", "value"]]
+    return df.to_dict("records")
+
+
+@server.route("/api/data", methods=["GET"])
 def data():
     # Get filters
     year = flask.request.args.get("year")
@@ -52,5 +64,30 @@ def data():
 
     # Query the f_comex collection
     cursor = db.f_comex.find(query, query_fields)
-    data = list(cursor)
-    return json.dumps(data)
+    return json.dumps(list(cursor))
+
+
+@server.route("/api/metadata", methods=["GET"])
+def metadata():
+    output = {}
+
+    output["sh2"] = dict2dropdown(db.d_sh2.find({}, {"_id": 0}))
+
+    output["year"] = [
+        {"label": str(year), "value": year}
+        for year in db.f_comex.distinct("ANO")
+    ]
+
+    # hardcoded for now
+    output["type"] = [
+        {"label": "Exportação", "value": 1},
+        {"label": "Importação", "value": 0},
+    ]
+
+    return output
+
+
+@server.route("/api/via", methods=["GET"])
+def via():
+    cursor = db.d_via.find({}, {"_id": 0})
+    return json.dumps(list(cursor))

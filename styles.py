@@ -1,3 +1,6 @@
+# Third party modules
+import plotly.graph_objects as go
+
 # Styling
 colors = {
     "dark-blue-grey": "rgb(62, 64, 76)",
@@ -34,3 +37,56 @@ externalgraph_colstyling = {
     "padding-top": "10px",
     "padding-bottom": "30px",
 }
+
+go_title = {"font": {"size": 16, "color": colors["white"]}}
+
+go_xaxis = {
+    "showgrid": False,
+    "linecolor": colors["light-grey"],
+    "color": colors["light-grey"],
+    "tickangle": 315,
+    "titlefont": {"size": 12, "color": colors["light-grey"]},
+    "tickfont": {"size": 11, "color": colors["light-grey"]},
+    "zeroline": False,
+}
+
+go_yaxis = {
+    "showgrid": True,
+    "color": colors["light-grey"],
+    "gridwidth": 0.5,
+    "gridcolor": colors["dark-green"],
+    "linecolor": colors["light-grey"],
+    "titlefont": {"size": 12, "color": colors["light-grey"]},
+    "tickfont": {"size": 11, "color": colors["light-grey"]},
+    "zeroline": False,
+}
+
+go_legend = {
+    "orientation": "h",
+    "yanchor": "bottom",
+    "y": 1.01,
+    "xanchor": "right",
+    "x": 1.05,
+    "font": {"size": 9, "color": colors["light-grey"]},
+}  # Legend will be on the top right, above the graph, horizontally
+
+go_margins = {
+    "l": 5,
+    "r": 5,
+    "t": 45,
+    "b": 15,
+}  # Set top margin to in case there is a legend
+
+go_layout = go.Layout(
+    font={"family": font_family},
+    title=go_title,
+    title_x=0.5,  # Align chart title to center
+    paper_bgcolor="rgba(0,0,0,0)",
+    plot_bgcolor="rgba(0,0,0,0)",
+    xaxis=go_xaxis,
+    yaxis=go_yaxis,
+    height=800,
+    legend=go_legend,
+    margin=go_margins,
+    separators=",.",
+)

@@ -2,18 +2,11 @@
 import dash_core_components as dcc
 import dash_html_components as html
 import dash_table
+import requests
 
 # Current project modules
-from app import app
+from app import app, API_ENDPOINT
 import styles
-
-
-years = [
-    {"label": "Todos", "value": "all"},
-    {"label": "2020", "value": 2020},
-    {"label": "2019", "value": 2019},
-    {"label": "2018", "value": 2018},
-]
 
 
 # Header with logo
@@ -29,6 +22,7 @@ def get_header():
                         children="Comex data viewer",
                         style={
                             "textAlign": "center",
+                            "fontWeight": "bold",
                             "color": styles.colors["medium-blue-grey"],
                         },
                     )
@@ -40,7 +34,7 @@ def get_header():
                 [
                     html.Img(
                         src=app.get_asset_url("logo.png"),
-                        height="43px",
+                        height="65px",
                         width="auto",
                     )
                 ],
@@ -108,7 +102,6 @@ layout = html.Div(
                                                     [
                                                         dcc.Dropdown(
                                                             id="filter-year",
-                                                            options=years,
                                                             value=[],
                                                             multi=True,
                                                             placeholder="Ano",
@@ -153,7 +146,6 @@ layout = html.Div(
                                                     [
                                                         dcc.Dropdown(
                                                             id="filter-type",
-                                                            options=years,
                                                             value=[],
                                                             multi=True,
                                                             placeholder=(
@@ -201,7 +193,6 @@ layout = html.Div(
                                                     [
                                                         dcc.Dropdown(
                                                             id="filter-product",
-                                                            options=years,
                                                             value=[],
                                                             multi=True,
                                                             placeholder=(
@@ -273,7 +264,7 @@ layout = html.Div(
                             style={
                                 "color": styles.colors["white"],
                                 "margin-top": "10px",
-                                "margin-bottom": "20px",
+                                "margin-bottom": "30px",
                             },
                         ),
                         html.Div(
